@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\URL;
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="{{asset('/img/favicon.png')}}}">
 
-    <title>Login Page 2 | Creative - Bootstrap 3 Responsive Admin Template</title>
+    <title>Login Page </title>
 
     <!-- Bootstrap CSS -->
     <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\URL;
 
 <div class="container">
 
-    <form  class="login-form" method="post" action="{{url('admin/login')}}">
+    <form  class="login-form" method="post">
         {{csrf_field()}}
         <div class="login-wrap">
             <p class="login-img"><i class="icon_lock_alt"></i></p>

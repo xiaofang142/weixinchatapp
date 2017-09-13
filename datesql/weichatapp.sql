@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-09-12 17:22:31
+Date: 2017-09-12 18:26:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,11 +24,12 @@ CREATE TABLE `wei_admins` (
   `name` char(40) NOT NULL,
   `password` char(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wei_admins
 -- ----------------------------
+INSERT INTO `wei_admins` VALUES ('1', 'admin', '69aa8ce43643a5be881f05823b110604b32b5bdf');
 
 -- ----------------------------
 -- Table structure for wei_industry

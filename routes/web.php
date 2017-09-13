@@ -13,19 +13,25 @@
 
 //定义后台管理模块
 Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
-    // 控制器在 "App\Http\Controllers\Admin" 命名空间下
-    Route::match(['post','get'],'login','LoginController@index');
-    Route::get('loginout','LoginController@loginout');
-    Route::get('index','IndexController@index');
+    //登录注册
+    Route::match(['post','get'],'login/index','LoginController@index');
+    Route::get('login/loginout','LoginController@loginout');
+
+    //默认首页
+    Route::match(['post','get'],'index/index','IndexController@index');
+
+    //用户管理
     Route::get('User/index','UserController@index');
-    Route::get('User/recharge/id/{id?}','UserController@recharge');
-    Route::post('User/setrecharge','UserController@setrecharge');
-    Route::get('User/detail/id/{id?}','UserController@detail');
-    Route::get('User/lockuser/id/{id?}','UserController@lockuser');
-    Route::get('User/forbidden/id/{id?}','UserController@forbidden');
-    Route::get('Order/index','OrderController@index');
-    Route::get('Order/export','OrderController@export');
-    Route::get('Order/detail/id/{id?}','OrderController@detail');
+
+    //需求管理
+    Route::get('Requirement/index','RequirementController@index');
+
+    //留言管理
+    Route::get('Message/index','MessageController@index');
+
+    // 分类管理
+    Route::get('Industry/index','IndustryController@index');
+
 
 
 });
