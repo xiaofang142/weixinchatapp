@@ -15,51 +15,49 @@
                     <tbody>
                     <tr>
                         <th><i class="icon_profile"></i> id</th>
-                        <th><i class="icon_calendar"></i> 用户名</th>
-                        <th><i class="icon_mail_alt"></i>头像 </th>
-                        <th><i class="icon_pin_alt"></i> 邮箱</th>
-                        <th><i class="icon_mobile"></i> 余额</th>
+                        <th><i class="icon_calendar"></i> 类型</th>
+                        <th><i class="icon_mail_alt"></i>标题 </th>
+                        <th><i class="icon_mobile"></i> 点击数</th>
+                        <th><i class="icon_mobile"></i> 留言数</th>
                         <th><i class="icon_mobile"></i> 状态</th>
+                        <th><i class="icon_pin_alt"></i> 创建时间</th>
                         <th><i class="icon_cogs"></i>操作 </th>
                     </tr>
-                    {{--@foreach ($users as $user)--}}
+                    @foreach ($requirements as $requirement)
                         <tr>
-                            {{--<td>{{$user->userid}}</td>--}}
-                            {{--<td>{{$user->name}}</td>--}}
-                            {{--<td><img width="50" height="50" src="{{$user->avatar}}"></td>--}}
-                            {{--<td>{{$user->email}}</td>--}}
-                            {{--<td>{{$user->balance}}</td>--}}
+                            <td>{{$requirement->id}}</td>
                             <td>
-                                {{--@if($user->status ==1)--}}
-                                {{--锁定--}}
-                                {{--@else--}}
-                                {{--正常--}}
-                                {{--@endif--}}
+                                @if($requirement->type == 1)
+                                    用户
+                                @else
+                                    平台
+                                @endif
+                            </td>
+                            <td>{{$requirement->title}}</td>
+                            <td>{{$requirement->clicks}}</td>
+                            <td>{{$requirement->messages}}</td>
+                            <td>
+                                @if($requirement->status ==1)
+                                    待审核
+                                @else
+                                    已审核
+                                @endif
+                            </td>
+                            <td>{{$requirement->created}}</td>
+                            <td>
+                                <div class="btn-group">
 
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--<div class="btn-group">--}}
-                                    {{--<a class="btn btn-primary" href="{{url('admin/User/recharge')}}/id/{{$user->userid}}"><i>充值</i></a>--}}
-                                    {{--<a class="btn btn-success" href="{{url('admin/User/detail')}}/id/{{$user->userid}}"><i>详情</i></a>--}}
-                                    {{--<a class="btn btn-info" href="{{url('admin/User/lockuser')}}/id/{{$user->userid}}"><i>--}}
-                                            {{--@if($user->status ==1)--}}
-                                            {{--解锁--}}
-                                            {{--@else--}}
-                                            {{--锁定--}}
-                                            {{--@endif--}}
-                                        {{--</i></a>--}}
-                                {{--</div>--}}
-                            {{--</td>--}}
-                        {{--</tr>--}}
-                        {{--@endforeach--}}
-
-
-
-
-
+                                    <a class="btn btn-warning" href="{{url('admin/Requirement/delete')}}/id/{{$requirement->id}}">删除<i></i></a>
+                                    <a class="btn btn-success" href="{{url('admin/Requirement/detail')}}/id/{{$requirement->id}}"><i>详情</i></a>
+                                    @if($requirement->status ==1)
+                                        <a class="btn btn-info" href="{{url('admin/Requirement/audit')}}/id/{{$requirement->id}}"><i>审核</i></a>
+                                    @endif
+                                </div>
+                            </td>
+                        @endforeach
                     </tbody>
                 </table>
-                {{--{{ $users->links() }}--}}
+                {{ $requirements->links() }}
             </section>
         </div>
     </div>

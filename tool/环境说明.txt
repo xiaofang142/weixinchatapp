@@ -1,0 +1,6 @@
+1 wamp
+
+2 extension=php_fileinfo.dll     开启文件上传
+
+
+3 为了避免上传图片路径问题    将更目录映射在   public 下面

@@ -43,7 +43,7 @@ class LoginController extends Controller
         session_start();
         unset($_SESSION['info']);
         $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-        $url =  dirname(dirname($url)).'/login/index';
+        $url =  dirname(dirname($url)).'/Login/index';
         header("location:$url");
     }
 

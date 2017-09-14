@@ -19,7 +19,7 @@ class BaseController extends Controller
         if (empty($_SESSION['info'])){
             $base = $request->getBaseUrl();
             $domain = $request->getHost();
-            $url = 'http://'.$domain.$base.'/admin/login/index';
+            $url = 'http://'.$domain.$base.'/admin/Login/index';
 //            $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
 //            $url =  dirname(dirname($url)).'/login/index';
             header("location:$url");

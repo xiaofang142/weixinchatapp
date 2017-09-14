@@ -14,17 +14,26 @@
 //定义后台管理模块
 Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
     //登录注册
-    Route::match(['post','get'],'login/index','LoginController@index');
-    Route::get('login/loginout','LoginController@loginout');
+    Route::match(['post','get'],'Login/index','LoginController@index');
+    Route::get('Login/loginout','LoginController@loginout');
 
     //默认首页
     Route::match(['post','get'],'index/index','IndexController@index');
 
     //用户管理
     Route::get('User/index','UserController@index');
+    Route::get('User/delete/id/{id?}','UserController@delete');
+    Route::get('User/register/id/{id?}','UserController@register');
+    Route::get('User/unpublic/id/{id?}','UserController@unpublic');
+    Route::get('User/setPublic/id/{id?}','UserController@setPublic');
+    Route::get('User/detail/id/{id?}','UserController@detail');
+    Route::match(['post','get'],'User/add','UserController@add');
 
     //需求管理
     Route::get('Requirement/index','RequirementController@index');
+    Route::get('Requirement/audit/id/{id?}','RequirementController@audit');
+    Route::get('Requirement/delete/id/{id?}','RequirementController@delete');
+    Route::get('Requirement/detail/id/{id?}','RequirementController@detail');
 
     //留言管理
     Route::get('Message/index','MessageController@index');
