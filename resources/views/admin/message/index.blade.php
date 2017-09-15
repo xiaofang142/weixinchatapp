@@ -16,50 +16,49 @@
                     <tr>
                         <th><i class="icon_profile"></i> id</th>
                         <th><i class="icon_calendar"></i> 用户名</th>
-                        <th><i class="icon_mail_alt"></i>头像 </th>
-                        <th><i class="icon_pin_alt"></i> 邮箱</th>
-                        <th><i class="icon_mobile"></i> 余额</th>
+                        <th><i class="icon_mail_alt"></i>需求标题 </th>
+                        <th><i class="icon_pin_alt"></i> 留言内容</th>
+                        <th><i class="icon_mobile"></i> 留言时间</th>
+                        <th><i class="icon_mobile"></i> 回复内容</th>
+                        <th><i class="icon_mobile"></i> 回复内容</th>
+                        <th><i class="icon_mobile"></i> 类型</th>
                         <th><i class="icon_mobile"></i> 状态</th>
                         <th><i class="icon_cogs"></i>操作 </th>
                     </tr>
-                    {{--@foreach ($users as $user)--}}
+                    @foreach ($messages as $message)
                         <tr>
-                            {{--<td>{{$user->userid}}</td>--}}
-                            {{--<td>{{$user->name}}</td>--}}
-                            {{--<td><img width="50" height="50" src="{{$user->avatar}}"></td>--}}
-                            {{--<td>{{$user->email}}</td>--}}
-                            {{--<td>{{$user->balance}}</td>--}}
+                            <td>{{$message->id}}</td>
+                            <td>{{$message->nickname}}</td>
+                            <td>{{$message->title}}</td>
+                            <td>{{$message->content}}</td>
+                            <td>{{$message->created}}</td>
+                            <td>{{$message->response}}</td>
+                            <td>{{$message->recovery}}</td>
                             <td>
-                                {{--@if($user->status ==1)--}}
-                                {{--锁定--}}
-                                {{--@else--}}
-                                {{--正常--}}
-                                {{--@endif--}}
-
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--<div class="btn-group">--}}
-                                    {{--<a class="btn btn-primary" href="{{url('admin/User/recharge')}}/id/{{$user->userid}}"><i>充值</i></a>--}}
-                                    {{--<a class="btn btn-success" href="{{url('admin/User/detail')}}/id/{{$user->userid}}"><i>详情</i></a>--}}
-                                    {{--<a class="btn btn-info" href="{{url('admin/User/lockuser')}}/id/{{$user->userid}}"><i>--}}
-                                            {{--@if($user->status ==1)--}}
-                                            {{--解锁--}}
-                                            {{--@else--}}
-                                            {{--锁定--}}
-                                            {{--@endif--}}
-                                        {{--</i></a>--}}
-                                {{--</div>--}}
-                            {{--</td>--}}
-                        {{--</tr>--}}
-                        {{--@endforeach--}}
-
-
-
-
-
+                            @if($message->type == 1)
+                                普通
+                            @else
+                                私密
+                            @endif
+                            </td>
+                            <td>
+                                @if($message->status == 1)
+                                   待回复
+                                @else
+                                    已回复
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-warning" href="{{url('admin/Message/delete')}}/id/{{$message->id}}"><i>删除</i></a>
+                                    <a class="btn btn-success" href="{{url('admin/Message/detail')}}/id/{{$message->id}}"><i>详情</i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
-                {{--{{ $users->links() }}--}}
+                {{ $messages->links() }}
             </section>
         </div>
     </div>

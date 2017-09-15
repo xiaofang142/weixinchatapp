@@ -37,11 +37,14 @@ Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
 
     //留言管理
     Route::get('Message/index','MessageController@index');
+    Route::get('Message/delete/id/{id?}','MessageController@delete');
+    Route::get('Message/detail/id/{id?}','MessageController@detail');
 
     // 分类管理
     Route::get('Industry/index','IndustryController@index');
-
-
+    Route::get('Industry/delete/id/{id?}','IndustryController@delete');
+    Route::match(['post','get'],'Industry/update/id/{id?}','IndustryController@update');
+    Route::match(['post','get'],'Industry/checkName','IndustryController@checkName');
 
 });
 
