@@ -32,7 +32,7 @@ class Requirement extends Model
     }
     //拿到详情
     public function getUserInfo($id){
-        $info = DB::table('requirements')->where('requirements.id',$id)
+        $info = $this->where('requirements.id',$id)
             ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
             ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
             ->leftJoin('users', 'requirements.user_id', '=', 'users.id')

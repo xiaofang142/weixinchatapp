@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class Admin extends Model
 {
     public function findUser($name){
-        $userinfo  =  DB::table('admins')->where('name',$name)->first();
+        $userinfo  =  $this->where('name',$name)->first();
         if(!empty($userinfo)){
             return $userinfo;
         }else{

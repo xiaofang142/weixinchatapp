@@ -22,7 +22,7 @@ class Message extends Model
     public $timestamps = false;
 
     public function  getMessageList(){
-        $messages = DB::table('messages')->where('messages.deleted','0')
+        $messages = $this->where('messages.deleted','0')
             ->leftJoin('users', 'messages.user_id', '=', 'users.id')
             ->leftJoin('requirements', 'messages.requirement_id', '=', 'requirements.id')
             ->select('messages.*','users.nickname','requirements.title')
@@ -37,7 +37,7 @@ class Message extends Model
     }
     //拿到留言详细信息
     public function getMessageInfoByid($id){
-        $info = DB::table('messages')->where('messages.id',$id)
+        $info = $this->where('messages.id',$id)
             ->leftJoin('users', 'messages.user_id', '=', 'users.id')
             ->leftJoin('requirements', 'messages.requirement_id', '=', 'requirements.id')
             ->select('messages.*','users.nickname','requirements.title')

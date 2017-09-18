@@ -31,7 +31,7 @@ class User extends Model
     }
     //拿到用户全部信息
     public function getUserInfo($id){
-        $info = DB::table('users')->where('users.id',$id)
+        $info = $this->where('users.id',$id)
             ->leftJoin('industrys', 'users.industry_id', '=', 'industrys.id')
             ->select('users.*', 'industrys.name')
             ->first();
