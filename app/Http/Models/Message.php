@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\DB;
 
 class Message extends Model
 {
+    /**
+     * 表明模型是否应该被打上时间戳
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
     public function  getMessageList(){
         $messages = DB::table('messages')->where('messages.deleted','0')
             ->leftJoin('users', 'messages.user_id', '=', 'users.id')
@@ -24,7 +31,7 @@ class Message extends Model
     }
     //跟新 字段
     public function saveUpdate($date,$id){
-        $result = DB::table('messages')->where(['id'=>$id])
+        $result = $this->where(['id'=>$id])
             ->update($date);
         return $result;
     }

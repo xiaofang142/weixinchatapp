@@ -14,14 +14,20 @@ use Illuminate\Support\Facades\DB;
 
 class User extends Model
 {
+    /**
+     * 表明模型是否应该被打上时间戳
+     *
+     * @var bool
+     */
+    public $timestamps = false;
     //拿到首页列表页数据
     public function getList(){
-        $users = DB::table('users')->where(['deleted'=>0])->paginate(20);
-        return $users;
+        $list = $this->where(['deleted'=>0])->paginate(20);
+        return $list;
     }
     //删除功能   修改delete  状态
     public function setUpdate($date,$id){
-        $result = DB::table('users')->where(['id'=>$id])->update($date);
+        $result = $this->where(['id'=>$id])->update($date);
     }
     //拿到用户全部信息
     public function getUserInfo($id){
@@ -33,7 +39,7 @@ class User extends Model
     }
     //保存用户信息
     public function saveUser($date){
-        $id = DB::table('users')->insertGetId($date);
+        $id = $this->insertGetId($date);
         return $id;
     }
 
