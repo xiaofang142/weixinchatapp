@@ -40,6 +40,15 @@ class Requirement extends Model
             ->first();
         return $info;
     }
+    public function getRequirementInfo($id){
+        $info = $this->where('requirements.id',$id)
+            ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
+            ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
+            ->leftJoin('users', 'requirements.user_id', '=', 'users.id')
+            ->select('requirements.*', 'i.name as industry_name','ii.name as species_name','users.nickname')
+            ->first();
+        return $info;
+    }
 
 
 

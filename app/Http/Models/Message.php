@@ -29,6 +29,16 @@ class Message extends Model
             ->paginate(20);
         return $messages;
     }
+    //更具需求id 拿到全部相关  留言
+    public function getMessageListByRequirement($id){
+        $messages = $this->where('messages.requirement_id',$id)
+            ->leftJoin('users', 'messages.user_id', '=', 'users.id')
+            ->leftJoin('requirements', 'messages.requirement_id', '=', 'requirements.id')
+            ->select('messages.*','users.nickname','requirements.title')
+            ->paginate(20);
+        return $messages;
+
+    }
     //跟新 字段
     public function saveUpdate($date,$id){
         $result = $this->where(['id'=>$id])
