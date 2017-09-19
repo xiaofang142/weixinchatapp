@@ -74,9 +74,16 @@ class MessageController extends Controller
                 'message'=>'该用户未注册'
             ]);
         }
-        //检查  当日用户剩余留言次数  并返回 数据
-        $newUserInfo = $userModel->checkMessages($openid);
+        //检查  当日用户剩余留言次数  并返回 剩余留言条数
+        $messages = $userModel->checkMessages($openid);
         //更具  剩余留言次数 做出相关提示
+        if ($messages <1){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'当日留言条数已用完'
+            ]);
+        }
+        //保存用户的合法  留言   
 
 
 

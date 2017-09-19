@@ -74,7 +74,8 @@ class User extends Model
             $result = $this->setUpdate(['messages'=>10,'updated'=>date('Y-m-d H:i:s',time())],$userInfo->id);
         }
         $newUserInfo =$this->getUserInfoByOpenid($openid);
-        return $newUserInfo;
+        $messages = $newUserInfo->messages;
+        return $messages;
     }
 
     //判断两天是否是同一天
