@@ -26,6 +26,7 @@ class Message extends Model
             ->leftJoin('users', 'messages.user_id', '=', 'users.id')
             ->leftJoin('requirements', 'messages.requirement_id', '=', 'requirements.id')
             ->select('messages.*','users.nickname','requirements.title')
+            ->orderBy('id','desc')
             ->paginate(20);
         return $messages;
     }
@@ -53,5 +54,10 @@ class Message extends Model
             ->select('messages.*','users.nickname','requirements.title')
             ->first();
         return $info;
+    }
+    // 新增留言
+    public function addMessage($date){
+        $id = $this->insertGetId($date);
+        return $id;
     }
 }

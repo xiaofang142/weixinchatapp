@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
 use App\Http\Models\Industry;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class IndustryController extends Controller
 {
@@ -21,7 +21,8 @@ class IndustryController extends Controller
         $this->industryModel = new Industry();
     }
 
-    public function getIndustry(Request $request,$type = null){
+    public function getIndustry(Request $request){
+        $type = $request->input('type');
         if(empty($type)){
             return response()->json([
                 'code' => '0',
@@ -31,7 +32,7 @@ class IndustryController extends Controller
         $list = $this->industryModel->getIndustryList($type);
         return response()->json([
             'code' => '200',
-            'date' =>$list ,
+            'data' =>$list ,
         ]);
     }
 

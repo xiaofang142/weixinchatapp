@@ -15,23 +15,28 @@ use Illuminate\Http\Request;
 //api  请求luyou
 Route::group(['namespace' => 'Apis'], function(){
     //基于token  拿到用户信息
-    Route::get('user/openid/{openid?}','UserController@getUserInfoByOpenid');
+    Route::get('user','UserController@getUserInfoByOpenid');
     //用户注册
-    Route::post('user/register/openid/{openid?}','UserController@register');
+    Route::post('user/register','UserController@register');
     //用户编辑
-    Route::post('user/edit/openid/{openid?}','UserController@edit');
+    Route::post('user/edit','UserController@edit');
+    //查看其它用户信息
+    Route::get('user/other','UserController@getOtherUserInfo');
     //拿到行业和种类信息
-    Route::get('industry/type/{type?}','IndustryController@getIndustry');
+    Route::get('industry','IndustryController@getIndustry');
     //需求一览
-    Route::get('requirements/openid/{openid?}','RequirementController@getRequirements');
+    Route::get('requirements','RequirementController@getRequirements');
     //需求详情
-    Route::get('requirement/detail/id/{id?}','RequirementController@detail');
+    Route::get('requirement/detail','RequirementController@detail');
+    //增加需求点击数
+    Route::post('requirement/clicks','RequirementController@addClicks');
     //留言一览
-    Route::get('messages/id/{id?}','MessageController@getMessagesList');
+    Route::get('messages','MessageController@getMessagesList');
     //回复
-    Route::post('message/reply/id/{id?}','MessageController@reply');
+    Route::post('message/reply','MessageController@reply');
     //留言
     Route::post('message/create','MessageController@create');
+
 
 
 

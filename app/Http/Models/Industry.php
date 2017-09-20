@@ -31,6 +31,7 @@ class Industry extends Model
     public function getIndustryList($type = 1){
         $industrys = $this
             ->where(['type'=>$type,'deleted'=>0])
+            ->orderBy('id','desc')
             ->get();
         return $industrys;
     }
@@ -38,6 +39,7 @@ class Industry extends Model
     public function getAllList(){
         $industrys = $this
             ->where(['deleted'=>0])
+            ->orderBy('id','desc')
             ->paginate(20);
         return $industrys;
     }

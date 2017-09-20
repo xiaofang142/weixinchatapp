@@ -75,6 +75,8 @@ class UserController extends BaseController
             $date['avatar'] = $url;
             $date['deleted'] = 0;  //默认有效
             $date['type'] = 2; //默认2 后台模拟
+            $date['openid'] =time();
+            $date['created']=date("Y-m-d H:i:s",time());
             unset($date['_token']);
             //
             $id = $userModel->saveUser($date);

@@ -22,7 +22,10 @@ class User extends Model
     public $timestamps = false;
     //拿到首页列表页数据
     public function getList(){
-        $list = $this->where(['deleted'=>0])->paginate(20);
+        $list = $this->where(['deleted'=>0])
+            ->select('id','openid','avatar','nickname','position','mobile','status','company_name','company_classify','industry_id','product_info','public','public','checks','checks','updated','created')
+            ->orderBy('id','desc')
+            ->paginate(20);
         return $list;
     }
     //删除功能   修改delete  状态
@@ -90,6 +93,26 @@ class User extends Model
     public function dealTime($time){
         $date = getdate(strtotime($time));
         return $date;
+    }
+    //检查当前用户剩余查看别人信息的条数
+    public function checkChecks($openid){
+        $userInfo = $this->getUserInfoByOpenid($openid);
+        $updated = $this->dealTime($userInfo->updated);
+        $nowed = $this->dealTime(date('Y-m-d H:i:s',time()));
+        if ( $this->isDiffDays($updated,$nowed)){
+            //同一天啥也不做
+        }else{
+            //不在同一天 修改剩余数量 并更新时间
+            $result = $this->setUpdate(['checks'=>5,'updated'=>date('Y-m-d H:i:s',time())],$userInfo->id);
+        }
+        $newUserInfo =$this->getUserInfoByOpenid($openid);
+        $checks = $newUserInfo->checks;
+        return $checks;
+    }
+    //基于id  拿到用户信息
+    public function getUserInfoById($id){
+        $userInfo = $this->where('id',$id)->first();
+        return $userInfo;
     }
 
 

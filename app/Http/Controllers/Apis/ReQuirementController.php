@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Apis;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Requirement;
 use App\Http\Models\User;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class RequirementController extends Controller
 {
@@ -23,35 +23,29 @@ class RequirementController extends Controller
         $this->requireModel = new Requirement();
         $this->userModel = new User();
     }
-    public function getRequirements(Request $request,$openid =null){
+    public function getRequirements(Request $request){
+        $openid = $request->header('openid');
         if(empty($openid)){
             return response()->json([
                 'code'=>'0',
                 'message'=>'openid不能为空',
             ]);
         }
-        //  检查是否是注册用户  显示不同的界面
+        //  检查是否是注册用户  显示不同的界面   是否是注控制册用户  由前台控制显示数据条数 这里只负责
         $userInfo = $this->userModel->getUserInfoByOpenid($openid);
-        $industryid = $request->input('industryid');   //行业分类id
-        $requirementid = $request->input('requirementid');  //需求分类id
-        $order = $request->input('order');   //这里需要凭借原生sql
-        $sql = "select * from ";
-        if ($userInfo->status == 1){
-            //注册用户   做分页
-            if(!empty($industryid)){
-
-            }
-            $users = DB::select('select * from users where active = ?', [1]);
-
-
-        }else{
-            //非注册用户   值返回20条
-            echo 2;
-        }
-
+        $search = $request->input('search');  //搜索内容
+        $type =$request->input('type');//基于  行业还是类别来搜索   1  行业   2 类别
+        $order = $request->input('order');   //   留言数   点击数  时间   均倒叙
+        //如果  $serach  为空表示  正常下来列表   查询全部  倒叙排序
+         $list = $this->requireModel->getSearchList($search,$type,$order);
+         return response()->json([
+             'code'=>200,
+             'data'=>$list,
+         ]);
     }
     //需求详情 信息
-    public function detail(Request $request, $id = null){
+    public function detail(Request $request){
+        $id = $request->input('requirement_id');
         if (empty($id)){
             return response()->json([
                 'code'=>'0',
@@ -67,9 +61,30 @@ class RequirementController extends Controller
         }else{
             return response()->json([
                 'code'=>'200',
-                'date'=> $info,
+                'data'=> $info,
             ]);
         }
+    }
+    //用户点击需求时增加该点击数
+    public function addClicks(Request $request){
+        $requirementId = $request->input('requirement_id');
+        if(empty($requirementId)){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'该需求不存在或者id错误',
+            ]);
+        }
+        $requirement = $this->requireModel->getRequirementInfo($requirementId);
+        $clicks = $requirement->clicks;
+        $result = $this->requireModel->setUpdate([
+            'clicks'=>($clicks +1),
+        ],$requirementId);
+        return response()->json([
+            'code'=>200,
+            'data'=>[
+                'requirement_id'=>$requirementId,
+            ]
+        ]);
     }
 
 
