@@ -36,16 +36,16 @@
                             <td>{{$message->recovery}}</td>
                             <td>
                             @if($message->type == 1)
-                                普通
+                                <span class="btn-primary">普通</span>
                             @else
-                                私密
+                                <span class="btn-info">私密</span>
                             @endif
                             </td>
                             <td>
                                 @if($message->status == 1)
-                                   待回复
+                                   <span class="btn-warning">待回复</span>
                                 @else
-                                    已回复
+                                    <span class="btn-success">已回复</span>
                                 @endif
                             </td>
                             <td>

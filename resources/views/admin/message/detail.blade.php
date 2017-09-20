@@ -28,6 +28,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-lg-2 control-label">所属需求内容</label>
+                        <div class="col-lg-10">
+                            <p class="form-control-static">{{$info->content}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-lg-2 control-label">内容</label>
                         <div class="col-lg-10">
                             <p class="form-control-static">{{$info->content}}</p>
@@ -44,9 +50,9 @@
                         <div class="col-lg-10">
                             <p class="form-control-static">
                                 @if($info->status ==1)
-                                    待回复
+                                    <span class="btn-warning">待回复</span>
                                 @else
-                                    已回复
+                                    <span class="btn-success">已回复</span>
                                 @endif
                             </p>
                         </div>
@@ -70,13 +76,21 @@
                         <div class="col-lg-10">
                             <p class="form-control-static">
                                 @if($info->type == 1)
-                                    普通
+                                    <span class="btn-primary">普通</span>
                                 @else
-                                    私密
+                                    <span class="btn-info">私密</span>
                                 @endif
                             </p>
                         </div>
                     </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"></label>
+                        <div class="col-lg-10">
+                            <p class="form-control-static"><a href="javascript:history.go(-1)">返回上一页</a> </p>
+                        </div>
+                    </div>
+                    <br/>
 
                 </div>
             </section>

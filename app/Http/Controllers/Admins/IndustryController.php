@@ -51,12 +51,25 @@ class IndustryController extends BaseController
     public function checkName(Request $request){
         $name = $request->input('name');
         $type = $request->input('type');
+        $id   = empty($request->input('id')) ? null:$request->input('id');
         $industryModel = $this->industryModel;
-        $result = $industryModel->checckName($name,$type);
+        $result = $industryModel->checckName($name,$type,$id);
         if ($result === true){
             echo 1;
         }else{
-            echo -1;
+            echo -1;   //以重复
+        }
+    }
+    //添加分类
+    public function add(Request $request){
+        if($request->isMethod('post')){
+            $date['name'] = $request->input('name');
+            $date['type'] = $request->input('type');
+            $date['deleted'] = '0';
+            $result = $this->industryModel->saveIndustry($date);
+            return redirect()->action('Admins\IndustryController@index');
+        }else{
+            return view('admin.industry.add');
         }
     }
 

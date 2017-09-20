@@ -38,9 +38,9 @@
                             <td>{{$requirement->messages}}</td>
                             <td>
                                 @if($requirement->status ==1)
-                                    待审核
+                                   <span class="btn-warning"> 待审核</span>
                                 @else
-                                    已审核
+                                    <span class="btn-success">已审核</span>
                                 @endif
                             </td>
                             <td>{{$requirement->created}}</td>

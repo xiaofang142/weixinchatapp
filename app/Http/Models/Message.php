@@ -51,7 +51,7 @@ class Message extends Model
         $info = $this->where('messages.id',$id)
             ->leftJoin('users', 'messages.user_id', '=', 'users.id')
             ->leftJoin('requirements', 'messages.requirement_id', '=', 'requirements.id')
-            ->select('messages.*','users.nickname','requirements.title')
+            ->select('messages.*','users.nickname','requirements.title','requirements.content')
             ->first();
         return $info;
     }

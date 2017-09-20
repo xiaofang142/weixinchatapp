@@ -8,8 +8,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    用户列表
-
+                    分类列表   &nbsp;&nbsp;<a href="{{url('admin/Industry/add')}}">添加分类</a>
                 </header>
                 <table class="table table-striped table-advance table-hover">
                     <tbody>
@@ -25,9 +24,9 @@
                             <td>{{$industry->name}}</td>
                             <td>
                                 @if($industry->type == 1)
-                                    行业
+                                    <span class="btn-primary">行业</span>
                                 @elseif($industry->type == 2)
-                                    种类
+                                    <span class="btn-info">种类</span>
                                 @endif
                             </td>
 
@@ -39,8 +38,6 @@
                             </td>
                         </tr>
                         @endforeach
-
-
 
 
 

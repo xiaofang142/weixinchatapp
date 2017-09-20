@@ -11,24 +11,18 @@
                 <div class="panel-body">
                     <form method="post" onsubmit="return checkform();">
                         {{csrf_field()}}
-                    <input type="hidden" value="{{$info->id}}" name="id" id="id">
                     <div class="form-group">
                         <label class="col-lg-2 control-label">名字</label>
                         <div class="col-lg-10">
-                            <p class="form-control-static"><input id="name" type="text" name="name" value="{{$info->name}}"></p>
+                            <p class="form-control-static"><input id="name" type="text" name="name"></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">类型</label>
                         <div class="col-lg-10">
                             <p class="form-control-static">
-                                @if($info->type == 1)
-                                    行业分类:<input class="cb-radio" checked type="radio" name="type" value="1">
-                                    种类分类:<input class="cb-radio" type="radio" name="type" value="2">
-                                @elseif($info->type == 2)
-                                    行业分类:<input class="cb-radio"  type="radio" name="type" value="1">
-                                    种类分类:<input class="cb-radio" checked type="radio" name="type" value="2">
-                                @endif
+                                行业分类:<input class="cb-radio"  type="radio" name="type" value="1">
+                                种类分类:<input class="cb-radio" checked type="radio" name="type" value="2">
                             </p>
                         </div>
                     </div>
@@ -60,12 +54,11 @@
             return false;
         }
         var type = $(".cb-radio:checked").val();
-        var id = $("#id").val();
         var  status;
         $.ajax({
             type:'post',
             url:"{{url('admin/Industry/checkName')}}",
-            data:{name:name,_token:"{{csrf_token()}}",type:type,id:id},
+            data:{name:name,_token:"{{csrf_token()}}",type:type},
             async:false,
             success:function (message) {
                status = message;

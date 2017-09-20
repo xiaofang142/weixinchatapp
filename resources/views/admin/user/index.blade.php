@@ -38,23 +38,23 @@
                             <td>{{$user->product_info}}</td>
                             <td>
                                 @if($user->public ==1)
-                                    公开
+                                   <span class="btn-success"> 公开</span>
                                 @else
-                                    不公开
+                                    <span class="btn-warning">不公开</span>
                                 @endif
                             </td>
                             <td>
                                 @if($user->status ==1)
-                                    已注册
+                                    <span class="btn-success">已注册</span>
                                 @else
-                                    未注册
+                                    <span class="btn-warning">未注册</span>
                                 @endif
                             </td>
                             <td>
                                 @if($user->type ==1)
-                                    前台注册
+                                    <span class="btn-primary">前台注册</span>
                                 @else
-                                   后台模拟
+                                   <span class="btn-info">后台模拟</span>
                                 @endif
                             </td>
                             <td>

@@ -56,13 +56,29 @@ class Industry extends Model
         return $info;
     }
     //更具名字 和类型检测是否重复 现在的规则是 同名但是不同类型也是合法的
-    public function checckName($name,$type){
+    public function checckName($name,$type,$id){
         $result = $this->where(['name'=>$name,'type'=>$type])
             ->first();
         if (empty($result)){
             return true;
         }else{
-            return false;
+            if(!empty($id)){
+                //表示从修改页面拿过来
+                if($result->id != $id){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else {
+                //表示从增加页面过来
+                return false;
+            }
+
         }
+    }
+    //添加数据
+    public function saveIndustry($date){
+        $id = $this->insertGetId($date);
+        return $id;
     }
 }

@@ -75,9 +75,9 @@
                         <div class="col-lg-10">
                             <p class="form-control-static">
                              @if($info->status == 1)
-                                未审核    <a class="btn btn-info" href="{{url('admin/Requirement/audit')}}/id/{{$info->id}}"><i>去审核</i></a>
+                                <span class="btn-warning">未审核</span>    <a class="btn btn-info" href="{{url('admin/Requirement/audit')}}/id/{{$info->id}}"><i>审核</i></a>
                               @else
-                                已审核
+                                <span class="btn-success">已审核</span>
                              @endif
                             </p>
                         </div>
@@ -91,11 +91,18 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">内容</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control-static">{{$info->content}}</textarea>
+                            <p class="form-control-static">{{$info->content}}</p>
                         </div>
                     </div>
 
-
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"></label>
+                        <div class="col-lg-10">
+                            <p class="form-control-static"><a href="javascript:history.go(-1)">返回上一页</a> </p>
+                        </div>
+                    </div>
+                    <br/>
 
                 </div>
             </section>

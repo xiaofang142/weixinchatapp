@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
     Route::get('Industry/delete/id/{id?}','IndustryController@delete');
     Route::match(['post','get'],'Industry/update/id/{id?}','IndustryController@update');
     Route::match(['post','get'],'Industry/checkName','IndustryController@checkName');
+    Route::match(['post','get'],'Industry/add','IndustryController@add');
 
 });
 
