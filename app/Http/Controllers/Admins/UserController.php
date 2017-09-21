@@ -21,7 +21,7 @@ class UserController extends BaseController
     public $userMdel;
     public function __construct(Request $request)
     {
-        parent::__construct($request);
+        return parent::__construct($request);
         $this->userMdel = new User();
     }
 
@@ -63,32 +63,32 @@ class UserController extends BaseController
     }
     //添加用户
     public function add(Request $request){
+        
         $userModel = $this->userMdel;
         if($request->isMethod('post')){
             $date  = $request->input();
-            //处理图片
-            $file = Input::file('avatar');
-
-
-
+            //处理图片  处于路径考虑   只能在这里强写 不能调用
+            $file = $request->file('avatar');
             if($file->isValid()){
                 $originalName = $file->getClientOriginalName(); // 文件原名
                 $ext = $file->getClientOriginalExtension();     // 扩展名
                 $realPath = $file->getRealPath();   //临时文件的绝对路径
                 $type = $file->getClientMimeType();     // image/jpeg
-
                 // 上传文件
                 $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
                 // 使用我们新建的uploads本地存储空间（目录）
-                $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
 
-                $rootUrl = dirname($request->getBasePath());
-                $url = Storage::url('app/public/'.$filename);
-                if($rootUrl =='\\' || $rootUrl == '/' || $rootUrl =='\\\\' || $rootUrl == '//'){
-                    $rootUrl =null;
-                }
-                $url = $rootUrl.$url;
-                $path = $request->avatar->store('images');
+                $rootUrl = $request->getBasePath();
+                //$url = Storage::url($filename);
+//                if($rootUrl =='\\' || $rootUrl == '/' || $rootUrl =='\\\\' || $rootUrl == '//'){
+//                    $rootUrl =null;
+//                }
+                //  $url = $rootUrl.$url;
+                $host = \Illuminate\Support\Facades\Request::server('HTTP_HOST');
+                $url = "http://".$host.''.$rootUrl.'/uploads/'.$filename;
+//            var_dump($url);
+//            $path = $request->avatar->store('images');
                 //$url = Storage::url('app/'.$path);
             }
             $date['avatar'] = $url;
@@ -105,6 +105,34 @@ class UserController extends BaseController
             $industrysModel = new Industry();
             $industrys =$industrysModel->getIndustryList(1);
             return view('admin.user.add',['industrys'=>$industrys]);
+        }
+    }
+    //存储图片
+    public function saveImage($file){
+        if($file->isValid()){
+            $originalName = $file->getClientOriginalName(); // 文件原名
+            $ext = $file->getClientOriginalExtension();     // 扩展名
+            $realPath = $file->getRealPath();   //临时文件的绝对路径
+            $type = $file->getClientMimeType();     // image/jpeg
+            // 上传文件
+            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            // 使用我们新建的uploads本地存储空间（目录）
+            $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
+
+            $rootUrl = (new Request())->getBasePath();
+            //$url = Storage::url($filename);
+//                if($rootUrl =='\\' || $rootUrl == '/' || $rootUrl =='\\\\' || $rootUrl == '//'){
+//                    $rootUrl =null;
+//                }
+            //  $url = $rootUrl.$url;
+            $host = \Illuminate\Support\Facades\Request::server('HTTP_HOST');
+            $url = "http://".$host.''.$rootUrl.'/uploads/'.$filename;
+            return $url;
+//            var_dump($url);
+//            $path = $request->avatar->store('images');
+            //$url = Storage::url('app/'.$path);
+        }else{
+            return null;
         }
     }
 

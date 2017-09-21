@@ -16,12 +16,9 @@ class BaseController extends Controller
 {
     public function __construct(Request $request){
         session_start();
-        if (empty($_SESSION['info'])){
-            $base = $request->getBaseUrl();
-            $domain = $request->getHost();
-            $url = 'http://'.$domain.$base.'/admin/Login/index';
-//            $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-//            $url =  dirname(dirname($url)).'/login/index';
+        $info = empty($_SESSION['info']) ? null: $_SESSION['info'];
+        if (empty($info)){
+            $url = route('login');
             header("location:$url");
         }
     }

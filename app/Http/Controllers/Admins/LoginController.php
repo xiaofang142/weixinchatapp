@@ -22,8 +22,7 @@ class LoginController extends Controller
             $admin = new Admin();
             $info= $admin->findUser($name);
             if($info !== false){
-                if ($info->password == sha1($password)){
-                    session(['info'=>$info]);
+                if ($info->password == md5($password)){
                     session_start();
                     $_SESSION['info'] = $info;
                     return redirect()->action('Admins\IndexController@index');
@@ -36,14 +35,12 @@ class LoginController extends Controller
         }else{
             return view('admin/login/index');
         }
-
     }
 
-    public function loginout(){
+    public function loginout(Request $request){
         session_start();
-        unset($_SESSION['info']);
-        $url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-        $url =  dirname(dirname($url)).'/Login/index';
+        $_SESSION['info'] = null;
+        $url = route('login');
         header("location:$url");
     }
 

@@ -9,36 +9,43 @@
                   修改分类信息  &nbsp;  &nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1)">返回上一页</a>
                 </header>
                 <div class="panel-body">
-                    <form method="post" onsubmit="return checkform();">
+
+                    <form class="form-horizontal" method="post" onsubmit="return checkform();">
                         {{csrf_field()}}
-                    <input type="hidden" value="{{$info->id}}" name="id" id="id">
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">名字</label>
-                        <div class="col-lg-10">
-                            <p class="form-control-static"><input id="name" type="text" name="name" value="{{$info->name}}"></p>
+                        <input type="hidden" value="{{$info->id}}" name="id" id="id">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-1 control-label">分类名字</label>
+                            <div class="col-sm-11">
+                                <input name="name" id="name" class="form-control"  value="{{$info->name}}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">类型</label>
-                        <div class="col-lg-10">
-                            <p class="form-control-static">
+
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-1 control-label">类型</label>
+                            <div class="col-sm-11">
                                 @if($info->type == 1)
-                                    行业分类:<input class="cb-radio" checked type="radio" name="type" value="1">
-                                    种类分类:<input class="cb-radio" type="radio" name="type" value="2">
+                                    <label class="checkbox-inline">
+                                        <input class="cb-radio" type="radio" checked id="type" name="type" value="1"> 行业分类
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input class="cb-radio" type="radio" id="type" name="type" value="2">  种类分类
+                                    </label>
                                 @elseif($info->type == 2)
-                                    行业分类:<input class="cb-radio"  type="radio" name="type" value="1">
-                                    种类分类:<input class="cb-radio" checked type="radio" name="type" value="2">
+                                    <label class="checkbox-inline">
+                                        <input class="cb-radio" type="radio"  id="type" name="type" value="1"> 行业分类
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input checked class="cb-radio" type="radio" id="type" name="type" value="2">  种类分类
+                                    </label>
                                 @endif
-                            </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label"></label>
-                        <div class="col-lg-10">
-                            <p class="form-control-static"><input type="submit" value="提交"></p>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">提交分类</button>
+                            </div>
                         </div>
-                    </div>
-                    </form>
+
                 </div>
             </section>
         </div>

@@ -49,7 +49,19 @@ class RequirementController extends BaseController
     //添加
     public function add(Request $request){
         if($request->isMethod('post')){
-
+            $date['industry_id'] =$request->input('industry_id');
+            $date['species_id'] =$request->input('species_id');
+            $date['title'] = $request->input('title');
+            $date['content'] = $request->input('content');
+            $date['type'] =2;
+            $date['created'] = date('Y-m-d H:i:s',time());
+            $date['clicks'] =0;
+            $date['messages'] = 0;
+            $date['updated'] = date('Y-m-d H:i:s',time());
+            $date['status'] = 2;
+            $date['deleted'] =0;
+            $result = $this->requireModel->saveRequirement($date);
+            return redirect()->action("Admins\RequirementController@index");
         }else{
             $industrys = (new Industry())->where([['deleted','=','0'],['type','=','1']])->get();
             $species = (new Industry())->where([['deleted','=','0'],['type','=','2']])->get();

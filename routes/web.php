@@ -14,7 +14,7 @@
 //定义后台管理模块
 Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
     //登录注册
-    Route::match(['post','get'],'Login/index','LoginController@index');
+    Route::match(['post','get'],'Login/index','LoginController@index')->name('login');
     Route::get('Login/loginout','LoginController@loginout');
 
     //默认首页
@@ -31,15 +31,16 @@ Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
 
     //需求管理
     Route::get('Requirement/index','RequirementController@index');
-    Route::get('Requirement/add','RequirementController@add');
     Route::get('Requirement/audit/id/{id?}','RequirementController@audit');
     Route::get('Requirement/delete/id/{id?}','RequirementController@delete');
     Route::get('Requirement/detail/id/{id?}','RequirementController@detail');
+    Route::match(['post','get'],'Requirement/add','RequirementController@add');
 
     //留言管理
     Route::get('Message/index','MessageController@index');
     Route::get('Message/delete/id/{id?}','MessageController@delete');
     Route::get('Message/detail/id/{id?}','MessageController@detail');
+    Route::match(['post','get'],'Message/add','MessageController@add');
 
     // 分类管理
     Route::get('Industry/index','IndustryController@index');
