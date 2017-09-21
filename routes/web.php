@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
 
     //需求管理
     Route::get('Requirement/index','RequirementController@index');
+    Route::get('Requirement/add','RequirementController@add');
     Route::get('Requirement/audit/id/{id?}','RequirementController@audit');
     Route::get('Requirement/delete/id/{id?}','RequirementController@delete');
     Route::get('Requirement/detail/id/{id?}','RequirementController@detail');

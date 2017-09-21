@@ -8,25 +8,25 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    用户列表
+                    用户列表  &nbsp; <a href="{{url('admin/Requirement/add')}}" >添加需求</a>
 
                 </header>
                 <table class="table table-striped table-advance table-hover">
                     <tbody>
                     <tr>
-                        <th><i class="icon_profile"></i> id</th>
-                        <th><i class="icon_calendar"></i> 类型</th>
-                        <th><i class="icon_calendar"></i> 用户</th>
-                        <th><i class="icon_calendar"></i> 头像</th>
-                        <th><i class="icon_calendar"></i> 行业名</th>
-                        <th><i class="icon_calendar"></i> 种类名</th>
+                        <th>id</th>
+                        <th> 类型</th>
+                        <th> 用户</th>
+                        <th> 头像</th>
+                        <th> 行业名</th>
+                        <th> 种类名</th>
 
-                        <th><i class="icon_mail_alt"></i>标题 </th>
-                        <th><i class="icon_mobile"></i> 点击数</th>
-                        <th><i class="icon_mobile"></i> 留言数</th>
-                        <th><i class="icon_mobile"></i> 状态</th>
-                        <th><i class="icon_pin_alt"></i> 创建时间</th>
-                        <th><i class="icon_cogs"></i>操作 </th>
+                        <th>标题 </th>
+                        <th> 点击数</th>
+                        <th> 留言数</th>
+                        <th> 状态</th>
+                        <th> 创建时间</th>
+                        <th>操作 </th>
                     </tr>
                     @foreach ($requirements as $requirement)
                         <tr>

@@ -14,16 +14,16 @@
                 <table class="table table-striped table-advance table-hover">
                     <tbody>
                     <tr>
-                        <th><i class="icon_profile"></i> id</th>
-                        <th><i class="icon_calendar"></i> 用户名</th>
-                        <th><i class="icon_mail_alt"></i>需求标题 </th>
-                        <th><i class="icon_pin_alt"></i> 留言内容</th>
-                        <th><i class="icon_mobile"></i> 留言时间</th>
-                        <th><i class="icon_mobile"></i> 回复内容</th>
-                        <th><i class="icon_mobile"></i> 回复内容</th>
-                        <th><i class="icon_mobile"></i> 类型</th>
-                        <th><i class="icon_mobile"></i> 状态</th>
-                        <th><i class="icon_cogs"></i>操作 </th>
+                        <th>id</th>
+                        <th> 用户名</th>
+                        <th>需求标题 </th>
+                        <th> 留言内容</th>
+                        <th> 留言时间</th>
+                        <th> 回复内容</th>
+                        <th> 回复时间</th>
+                        <th> 类型</th>
+                        <th>状态</th>
+                        <th>操作 </th>
                     </tr>
                     @foreach ($messages as $message)
                         <tr>

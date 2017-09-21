@@ -9,7 +9,9 @@
 namespace App\Http\Controllers\Admins;
 
 
+use App\Http\Models\Industry;
 use App\Http\Models\Requirement;
+use App\Http\Models\User;
 use Illuminate\Http\Request;
 
 class RequirementController extends BaseController
@@ -43,6 +45,17 @@ class RequirementController extends BaseController
         $requirement = $this->requireModel;
         $info = $requirement->getUserInfo($id);
         return view('admin.requirement.detail',['info'=>$info]);
+    }
+    //添加
+    public function add(Request $request){
+        if($request->isMethod('post')){
+
+        }else{
+            $industrys = (new Industry())->where([['deleted','=','0'],['type','=','1']])->get();
+            $species = (new Industry())->where([['deleted','=','0'],['type','=','2']])->get();
+            $users = (new User())->where([['deleted','=','0'],['status','=','1']])->get();
+            return view('admin.requirement.add',['industrys'=>$industrys,'species'=>$species,'users'=>$users]);
+        }
     }
 
 

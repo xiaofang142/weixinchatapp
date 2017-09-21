@@ -11,19 +11,19 @@
                 <table class="table table-striped table-advance table-hover">
                     <tbody>
                     <tr>
-                        <th><i class="icon_profile"></i> id</th>
-                        <th><i class="icon_calendar"></i> openid</th>
-                        <th><i class="icon_mail_alt"></i>头像 </th>
-                        <th><i class="icon_pin_alt"></i> 昵称</th>
-                        <th><i class="icon_mobile"></i> 电话</th>
-                        <th><i class="icon_mobile"></i> 职位</th>
-                        <th><i class="icon_mobile"></i> 公司名字</th>
-                        <th><i class="icon_mobile"></i> 公司分类</th>
-                        <th><i class="icon_mobile"></i> 产品信息</th>
-                        <th><i class="icon_mobile"></i> 是否公开</th>
-                        <th><i class="icon_mobile"></i> 是否注册</th>
-                        <th><i class="icon_mobile"></i> 用户来源</th>
-                        <th><i class="icon_cogs"></i>操作 </th>
+                        <th> id</th>
+                        <th> openid</th>
+                        <th>头像 </th>
+                        <th> 昵称</th>
+                        <th> 电话</th>
+                        <th> 职位</th>
+                        <th> 公司名字</th>
+                        <th> 公司分类</th>
+                        <th> 产品信息</th>
+                        <th> 是否公开</th>
+                        <th> 是否注册</th>
+                        <th> 用户来源</th>
+                        <th>操作 </th>
                     </tr>
                     @foreach ($users as $user)
                         <tr>

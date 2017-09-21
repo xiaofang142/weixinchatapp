@@ -60,29 +60,32 @@ class Requirement extends Model
     //$industry_name, 行业名
     //$species_name,种类名
     //$order 排序方式
-    public function getSearchList($search,$industry_name,$species_name,$order){
-
-        //如果 $search  为空  则  不加入 【排序条件
-        if(empty($search)){
-            //非搜索  列表
-            $list = $this->where('i.deleted','=','0')
-                ->orderBy('clicks', 'desc')
-                ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
-                ->leftJoin('users','requirements.user_id','=','users.id')
-                ->select('requirements.*', 'i.name','users.nickname','users.avatar','users.id as user_id')
-                ->paginate(20);
-        }else{
-            //搜索列表
-            $list = $this->where('i.name', 'like','%'.$search.'%')
-                ->where('i.type','=','1')
-                ->where('i.deleted','=','0')
-                ->orderBy($order, 'desc')
-                ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
-                ->leftJoin('users','requirements.user_id','=','users.id')
-                ->select('requirements.*', 'i.name','users.nickname','users.avatar','users.id as user_id')
-                ->paginate(20);
+    public function getSearchList($search=null,$industry_name=null,$species_name=null,$order=null){
+//        $sql = "select * from table_requirements  ";
+//        $list = DB::select($sql)->paginate(20);
+        $where =array();
+        if(!empty($search)){
+            $where[] =['requirements.title','like','%'.$search.'%'];
         }
+        if(!empty($industry_name)){
+            $where[] =['i.industry_name','like','%'.$industry_name.'%'];
+        }
+        if(!empty($species_name)){
+            $where[] =['ii.species_name','like','%'.$species_name.'%'];
+        }
+        if(empty($order)){
+            $order = 'clicks';
+        }
+        $list = $this->select('requirements.*','users.nickname','users.id as user_id','users.avatar')
+            ->where($where)
+            ->orderBy($order, 'desc')
+            ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
+            ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
+            ->leftJoin('users','requirements.user_id','=','users.id')
+            ->paginate(20);
         return $list;
+        //如果 $search  为空  则  不加入 【排序条件
+
     }
     //保存发布的需求的信息
     public function saveRequirement($date){
