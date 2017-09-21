@@ -43,7 +43,7 @@
 
                     </tbody>
                 </table>
-                {{ $industrys->links() }}
+
             </section>
         </div>
     </div>

@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Apis;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\Requirement;
 use App\Http\Models\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class UserController extends Controller
             $userInfo = $this->userModel->getUserInfoByOpenid($openid);
             //两种情况 ，当有user_id 进来时 如果user_id 与openid 对应的不是同一组数据则表示  当前用户查看其它用户的数据
             if (!empty($userId) && $userInfo->id != $userId){
+                //返回其他用户信息
                return  $this->getOtherUserInfo($openid,$userId);
             }
             if(empty($userInfo)){
@@ -48,6 +50,8 @@ class UserController extends Controller
                     'message' => '用户信息不存在，请检查openid',
                 ]);
             }else{
+                //此时表示在个人信息页面   同时需要拿到  该用户已经发布过的
+                $userInfo['requirements'] =$this->getUserHavdRequirement();
                 return response()->json([
                     'code' => '200',
                     'data' => $userInfo,
@@ -83,12 +87,12 @@ class UserController extends Controller
         //接收其他信息
         $date  = $request->input();
         //处理图片
-        $file = Input::file('avatar');
-        if($file->isValid()){
-            $path = $request->avatar->store('images');
-            $url = Storage::url('app/'.$path);
-            $date['avatar'] = $url;
-        }
+//        $file = Input::file('avatar');
+//        if($file->isValid()){
+//            $path = $request->avatar->store('images');
+//            $url = Storage::url('app/'.$path);
+//            $date['avatar'] = $url;
+//        }
         $date['deleted'] = 0;  //默认有效
         $date['type'] = 1; //默认2 后台模拟
         $date['status'] = 1; //默认2 后台模拟
@@ -96,7 +100,7 @@ class UserController extends Controller
         $result = $this->userModel->setUpdate($date,$userInfo->id);
         return response()->json([
             'code' => '0',
-            'data' => $result,
+            'data' => ['user_id'=>$userInfo->id],
         ]);
     }
     //从逻辑上来讲  编辑和  注册功能基本一样
@@ -111,17 +115,17 @@ class UserController extends Controller
         $userInfo = $this->userModel->getUserInfoByOpenid($openid);
         //接收其他信息
         $date  = $request->input();
-        //处理图片
-        $file = Input::file('avatar');
-        if($file->isValid()){
-            $path = $request->avatar->store('images');
-            $url = Storage::url('app/'.$path);
-            $date['avatar'] = $url;
-        }
+        //处理图片   头像 是有微信返回的metaid
+//        $file = Input::file('avatar');
+//        if($file->isValid()){
+//            $path = $request->avatar->store('images');
+//            $url = Storage::url('app/'.$path);
+//            $date['avatar'] = $url;
+//        }
         $result = $this->userModel->setUpdate($date,$userInfo->id);
         return response()->json([
             'code' => '200',
-            'data' => $result,
+            'data' => ['user_id'=>$userInfo->id],
         ]);
     }
     //当前用户查看用户的信息
@@ -167,6 +171,11 @@ class UserController extends Controller
             'code'=>'200',
             'data'=>$date,
         ]);
+    }
+    //获取用户已经发布过的信息
+    public function getUserHavdRequirement($userId){
+        $list = (new Requirement())->getUserHavedRequirement($userId);
+        return $list;
     }
 
 }

@@ -86,6 +86,65 @@ class RequirementController extends Controller
             ]
         ]);
     }
+    //发布需求
+    public function create(Request $request){
+        $openid = $request->header('openid');
+        if(empty($openid)){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'openid不能为空',
+            ]);
+        }
+        $userInfo =(new User())->getUserInfoByOpenid($openid);
+        if(empty($userInfo)){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'openid无效',
+            ]);
+        }
+        $date['type'] = 1;
+        $date['industry_id'] = $request->input('industry_id');
+        if(empty($date['industry_id'] )){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'行业分类不能为空',
+            ]);
+        }
+        $date['species_id'] = $request->input('species_id');
+        if(empty($date['species_id'])){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'种类分类不能为空',
+            ]);
+        }
+        $date['title'] = $request->input('title');
+        if(empty($date['title'])){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'title不能为空',
+            ]);
+        }
+        $date['content'] = $request->input('content');
+        if(empty($date['content'])){
+            return response()->json([
+                'code'=>'0',
+                'message'=>'内容不能为空',
+            ]);
+        }
+        $date['created'] =date('Y-m-d H:i:s',time());
+        $date['user_id'] = $userInfo->id;
+        $date['clicks'] =0;
+        $date['messages'] =0;
+        $date['status'] =1;
+        $date['deleted'] =0;
+        $requirementId = $this->requireModel->saveRequirement($date);
+        return response()->json([
+            'code'=>200,
+            'data'=>[
+                'requirement_id'=>$requirementId,
+            ]
+        ]);
+    }
 
 
 

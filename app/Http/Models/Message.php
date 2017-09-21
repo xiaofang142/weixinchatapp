@@ -33,9 +33,10 @@ class Message extends Model
     //更具需求id 拿到全部相关  留言
     public function getMessageListByRequirement($id){
         $messages = $this->where('messages.requirement_id',$id)
+            ->where('messages.deleted','=','0')
             ->leftJoin('users', 'messages.user_id', '=', 'users.id')
             ->leftJoin('requirements', 'messages.requirement_id', '=', 'requirements.id')
-            ->select('messages.*','users.nickname','requirements.title')
+            ->select('messages.*','users.nickname','requirements.title','users.avatar','users.id as user_id')
             ->paginate(20);
         return $messages;
 

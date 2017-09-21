@@ -16,6 +16,11 @@
                     <tr>
                         <th><i class="icon_profile"></i> id</th>
                         <th><i class="icon_calendar"></i> 类型</th>
+                        <th><i class="icon_calendar"></i> 用户</th>
+                        <th><i class="icon_calendar"></i> 头像</th>
+                        <th><i class="icon_calendar"></i> 行业名</th>
+                        <th><i class="icon_calendar"></i> 种类名</th>
+
                         <th><i class="icon_mail_alt"></i>标题 </th>
                         <th><i class="icon_mobile"></i> 点击数</th>
                         <th><i class="icon_mobile"></i> 留言数</th>
@@ -33,6 +38,10 @@
                                     平台
                                 @endif
                             </td>
+                            <td>{{$requirement->nickname}}</td>
+                            <td><img width="30" height="30" src="{{$requirement->avatar}}"></td>
+                            <td>{{$requirement->industry_name}}</td>
+                            <td>{{$requirement->species_name}}</td>
                             <td>{{$requirement->title}}</td>
                             <td>{{$requirement->clicks}}</td>
                             <td>{{$requirement->messages}}</td>

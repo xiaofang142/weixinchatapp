@@ -68,9 +68,28 @@ class UserController extends BaseController
             $date  = $request->input();
             //处理图片
             $file = Input::file('avatar');
+
+
+
             if($file->isValid()){
+                $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                $type = $file->getClientMimeType();     // image/jpeg
+
+                // 上传文件
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                // 使用我们新建的uploads本地存储空间（目录）
+                $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+
+                $rootUrl = dirname($request->getBasePath());
+                $url = Storage::url('app/public/'.$filename);
+                if($rootUrl =='\\' || $rootUrl == '/' || $rootUrl =='\\\\' || $rootUrl == '//'){
+                    $rootUrl =null;
+                }
+                $url = $rootUrl.$url;
                 $path = $request->avatar->store('images');
-                $url = Storage::url('app/'.$path);
+                //$url = Storage::url('app/'.$path);
             }
             $date['avatar'] = $url;
             $date['deleted'] = 0;  //默认有效

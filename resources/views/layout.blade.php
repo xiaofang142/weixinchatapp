@@ -84,7 +84,7 @@
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
                         <li>
-                            <a href="{{url('admin/login/loginout')}}"><i class="icon_key_alt"></i> Log Out</a>
+                            <a href="{{url('admin/Login/loginout')}}"><i class="icon_key_alt"></i> Log Out</a>
                         </li>
 
                     </ul>

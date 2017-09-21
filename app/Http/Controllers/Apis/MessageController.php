@@ -132,12 +132,11 @@ class MessageController extends Controller
             ]);
         }
         $recovery = date('Y-m-d H:i:s',time());
-        $status = 2;
         //保存数据
         $result = $this->messageModel->saveUpdate([
             'response'=>$response,
             'recovery' =>$recovery,
-            'status'=>$status,
+            'status'=>2,
         ],$messagesId);
         return response()->json([
             'code'=>'200',

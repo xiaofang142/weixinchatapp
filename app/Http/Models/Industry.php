@@ -40,7 +40,7 @@ class Industry extends Model
         $industrys = $this
             ->where(['deleted'=>0])
             ->orderBy('id','desc')
-            ->paginate(20);
+            ->get();
         return $industrys;
     }
     //修改字段值

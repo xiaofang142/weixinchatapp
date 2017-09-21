@@ -26,6 +26,8 @@ Route::group(['namespace' => 'Apis'], function(){
     Route::get('industry','IndustryController@getIndustry');
     //需求一览
     Route::get('requirements','RequirementController@getRequirements');
+    //发布需求 create
+    Route::post('requirement/create','RequirementController@create');
     //需求详情
     Route::get('requirement/detail','RequirementController@detail');
     //增加需求点击数

@@ -1,3 +1,6 @@
+后台默认用户  admin  密码weichatapp
+
+
 1 wamp
 
 2 extension=php_fileinfo.dll     开启文件上传

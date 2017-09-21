@@ -22,8 +22,12 @@ class Requirement extends Model
     public $timestamps = false;
     //拿到首页列表页数据
     public function getList(){
-        $requirements = $this->where(['deleted'=>0])
+        $requirements = $this->where('requirements.deleted','=','0')
             ->orderBy('id','desc')
+            ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
+            ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
+            ->leftJoin('users','requirements.user_id','=','users.id')
+            ->select('requirements.*', 'i.name as industry_name','users.nickname','ii.name as species_name','users.avatar')
             ->paginate(20);
         return $requirements;
     }
@@ -38,7 +42,7 @@ class Requirement extends Model
             ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
             ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
             ->leftJoin('users', 'requirements.user_id', '=', 'users.id')
-            ->select('requirements.*', 'i.name as industry_name','ii.name as species_name','users.nickname')
+            ->select('requirements.*', 'i.name as industry_name','ii.name as species_name','users.nickname','users.avatar','users.company_name')
             ->first();
         return $info;
     }
@@ -47,19 +51,25 @@ class Requirement extends Model
             ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
             ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
             ->leftJoin('users', 'requirements.user_id', '=', 'users.id')
-            ->select('requirements.*', 'i.name as industry_name','ii.name as species_name','users.nickname')
+            ->select('requirements.*', 'i.name as industry_name','ii.name as species_name','users.nickname','users.avatar','users.company_name')
             ->first();
         return $info;
     }
     //基于搜索 拿到数据
-    public function getSearchList($search,$type=1,$order ='clicks'){
+    //$search,需求标题
+    //$industry_name, 行业名
+    //$species_name,种类名
+    //$order 排序方式
+    public function getSearchList($search,$industry_name,$species_name,$order){
+
         //如果 $search  为空  则  不加入 【排序条件
         if(empty($search)){
             //非搜索  列表
             $list = $this->where('i.deleted','=','0')
                 ->orderBy('clicks', 'desc')
                 ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
-                ->select('requirements.*', 'i.name')
+                ->leftJoin('users','requirements.user_id','=','users.id')
+                ->select('requirements.*', 'i.name','users.nickname','users.avatar','users.id as user_id')
                 ->paginate(20);
         }else{
             //搜索列表
@@ -68,9 +78,26 @@ class Requirement extends Model
                 ->where('i.deleted','=','0')
                 ->orderBy($order, 'desc')
                 ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
-                ->select('requirements.*', 'i.name')
+                ->leftJoin('users','requirements.user_id','=','users.id')
+                ->select('requirements.*', 'i.name','users.nickname','users.avatar','users.id as user_id')
                 ->paginate(20);
         }
+        return $list;
+    }
+    //保存发布的需求的信息
+    public function saveRequirement($date){
+        $id = $this->insertGetId($date);
+        return $id;
+    }
+    //获取用户已经发布过的信息
+    public function getUserHavedRequirement($userId){
+        $list = $this->where('requirements.user_id','=',$userId)
+            ->where('requirements.deleted','=','0')
+            ->orderBy('clicks', 'desc')
+            ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
+            ->leftJoin('users','requirements.user_id','=','users.id')
+            ->select('requirements.*', 'i.name','users.nickname')
+            ->get();
         return $list;
     }
 

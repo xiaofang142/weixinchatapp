@@ -46,7 +46,7 @@
 
 
         </div><!--/.row-->
-        <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >免费网站模板</a></div>
+
 
 
 
