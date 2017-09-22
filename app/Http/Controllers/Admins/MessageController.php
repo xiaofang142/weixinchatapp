@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Admins;
 
 
 use App\Http\Models\Message;
+use App\Http\Models\Requirement;
+use App\Http\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +41,31 @@ class MessageController extends BaseController
         $messageModel = $this->messageModel;
         $info = $messageModel->getMessageInfoByid($id);
         return view('admin.message.detail',['info'=>$info]);
+    }
+    //添加
+    public function add(Request $request){
+        if($request->isMethod('post')){
+            $date['user_id'] = $request->input('user_id');
+            $date['requirement_id'] = $request->input('requirement_id');
+            $date['content'] = $request->input('content');
+            $date['status'] = 1;
+            $date['type'] = $request->input('type');
+            if(!empty($request->input('response'))){
+                $date['response'] = $request->input('response');
+                $date['recovery'] = date('Y-m-d H:i:s',time());
+                $date['status'] = 2;
+            }
+            $date['created'] = date('Y-m-d H:i:s',time());
+            $date['deleted'] = 0;
+            $result = $this->messageModel->addMessage($date);
+            return redirect()->action("Admins\MessageController@index");
+
+        }else{
+            $users = (new User())->where([['deleted','=','0'],['status','=','1']])->get();
+            $requirements = (new Requirement())->where([['deleted','=','0'],['status','=','2']])->get();
+            return view('admin.message.add',['users'=>$users,'requirements'=>$requirements]);
+
+        }
     }
 
 }

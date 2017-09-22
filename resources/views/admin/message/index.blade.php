@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    用户列表
+                    留言列表  &nbsp;&nbsp;<a href="{{url('admin/Message/add')}}">添加留言</a>
 
                 </header>
                 <table class="table table-striped table-advance table-hover">

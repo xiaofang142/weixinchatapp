@@ -10,3 +10,6 @@
 
 
 4 always_populate_raw_post_data  = -1   修改选项 
+
+
+5 php artisan storage:link   生成文件软连接

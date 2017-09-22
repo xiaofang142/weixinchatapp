@@ -104,13 +104,13 @@
 
     <!-- Bootstrap CSS -->
     <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/adminStyle.css.css')}}" rel="stylesheet">
+    {{--<link href="{{asset('/css/adminStyle.css.css')}}" rel="stylesheet">--}}
     <!-- bootstrap theme -->
     <link href="{{asset('/css/bootstrap-theme.css')}}" rel="stylesheet">
     <!--external css-->
     <!-- font icon -->
     <link href="{{asset('/css/elegant-icons-style.css')}}" rel="stylesheet" />
-    <link href="{{asset('/css/font-awesome.min.css')}}" rel="stylesheet" />
+    {{--<link href="{{asset('/css/font-awesome.min.css')}}" rel="stylesheet" />--}}
     <!-- full calendar css-->
     <link href="{{asset('/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css')}}" rel="stylesheet" />
     <link href="{{asset('/assets/fullcalendar/fullcalendar/fullcalendar.css')}}" rel="stylesheet" />
@@ -227,9 +227,10 @@
 <!-- container section start -->
 
 <!-- javascripts -->
+<script src="{{asset('/js/jquery-1.8.3.min.js')}}"></script>
 <script src="{{asset('/js/jquery.js')}}"></script>
 <script src="{{asset('/js/jquery-ui-1.10.4.min.js')}}"></script>
-<script src="{{asset('/js/jquery-1.8.3.min.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('/js/jquery-ui-1.9.2.custom.min.js')}}"></script>
 <!-- bootstrap -->
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
@@ -245,17 +246,17 @@
 {{--<<script src="{{asset('/js/fullcalendar.min.js')}}"></script> <!-- Full Google Calendar - Calendar -->--}}
 {{--<script src="{{asset('/assets/fullcalendar/fullcalendar/fullcalendar.js')}}}"></script>--}}
 <!--script for this page only-->
-<script src="{{asset('/js/calendar-custom.js')}}"></script>
+{{--<script src="{{asset('/js/calendar-custom.js')}}"></script>--}}
 <script src="{{asset('/js/jquery.rateit.min.js')}}"></script>
 <!-- custom select -->
 <script src="{{asset('/js/jquery.customSelect.min.js')}}" ></script>
 {{--<script src="{{asset('/assets/chart-master/Chart.js')}}}"></script>--}}
 
 <!--custome script for all page-->
-<script src="{{asset('/js/scripts.js')}}"></script>
+{{--<script src="{{asset('/js/scripts.js')}}"></script>--}}
 <!-- custom script for this page-->
 <script src="{{asset('/js/sparkline-chart.js')}}"></script>
-<script src="{{asset('/js/easy-pie-chart.js')}}"></script>
+{{--<script src="{{asset('/js/easy-pie-chart.js')}}"></script>--}}
 <script src="{{asset('/js/jquery-jvectormap-1.2.2.min.js')}}"></script>
 <script src="{{asset('/js/jquery-jvectormap-world-mill-en.js')}}"></script>
 <script src="{{asset('/js/xcharts.min.js')}}"></script>
