@@ -32,6 +32,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if($exception   instanceof HttpException){
+            dd($exception->getMessage());
+        }
         parent::report($exception);
     }
 
@@ -44,7 +47,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        //统一处理 api异常请求  如果 url 中包含 api  则表示默认是api 请求  并且当前异常时404
+        $url = $request->url();
+        $info = str_replace("/","\\",$url);
+        $urlList = explode('\\',$info);
+        if ($this->isHttpException($exception) && $exception->getStatusCode() == '404' && in_array('api',$urlList) ) {
+            $data['code'] =0;
+            $data['message'] = 'page not find';
+            exit(json_encode($data));
+        }else{
+            return parent::render($request, $exception);
+        }
     }
 
     /**
