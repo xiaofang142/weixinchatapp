@@ -88,34 +88,30 @@
         </style>
     </head>
 <section class="wrapper">
-    <form action="" method="post" class="STYLE-NAME">
-        <h1>Contact Form
-            <span>Please fill all the texts in the fields.</span>
-        </h1>
-        <label>
-            <span>Your Name :</span>
-            <input id="name" type="text" name="name" placeholder="Your Full Name" />
-        </label>
-        <label>
-            <span>Your Email :</span>
-            <input id="email" type="email" name="email" placeholder="Valid Email Address" />
-        </label>
-        <label>
-            <span>Message :</span>
-            <textarea id="message" name="message" placeholder="Your Message to Us"></textarea>
-        </label>
-        <label>
-            <span>Subject :</span><select name="selection">
-                <option value="Job Inquiry">Job Inquiry</option>
-                <option value="General Question">General Question</option>
-            </select>
-        </label>
-        <label>
-            <span>&nbsp;</span>
-            <input type="button" class="button" value="Send" />
-        </label>
+    <form action="user_list.html">
+        <table class="list-style">
+            <tr>
+                <td style="width:15%;text-align:right;">会员昵称：</td>
+                <td><input type="text" class="textBox length-middle"/></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">会员邮箱：</td>
+                <td><input type="text" class="textBox length-middle"/></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">设置密码：</td>
+                <td><input type="password" class="textBox length-middle"/></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">手机号码：</td>
+                <td><input type="text" class="textBox length-middle"/></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;"></td>
+                <td><input type="submit" class="tdBtn" value="添加新用户"/></td>
+            </tr>
+        </table>
     </form>
-
 
 </section>
 @stop

@@ -104,7 +104,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/adminStyle.css.css')}}" rel="stylesheet">
     <!-- bootstrap theme -->
     <link href="{{asset('/css/bootstrap-theme.css')}}" rel="stylesheet">
     <!--external css-->
