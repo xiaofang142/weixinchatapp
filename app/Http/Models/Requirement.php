@@ -65,30 +65,34 @@ class Requirement extends Model
 //        $list = DB::select($sql)->paginate(20);
         $where =array();
         $value =array();
+        $condition =' table_requirements.deleted = 0';
         if(!empty($search)){
             $where[] =['requirements.title','like','%'.$search.'%'];
             $value[] = $search;
+            $condition .=' and  table_requirements.title like '."'%".$search."%'";
         }
         if(!empty($industry_id)){
             $where[] =['i.id','=',$industry_id];
             $value[] = $industry_id;
+            $condition .=' and table_i.id = '.$industry_id;
         }
         if(!empty($species_id)){
             $where[] =['ii.id','=',$species_id];
             $value[] = $species_id;
+            $condition .=' and table_ii.id  =  '.$species_id;
         }
         if(empty($order)){
             $order = 'clicks';
         }
-        $list = $this->select('requirements.*','users.nickname','users.id as user_id','users.avatar')
-            ->where($where,['q',2.6])
-            //->where('id >= :id and age > :age',[':id'=>3,':age'=>5])
+        $list = $this->select('requirements.*','users.nickname','users.id as user_id','users.avatar','i.name as industry_name','ii.name as species_name')
+            //->where($where,['q',2.6])
+            ->whereRaw($condition)
             ->orderBy($order, 'desc')
             ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
             ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
             ->leftJoin('users','requirements.user_id','=','users.id')
-//            ->paginate(20);
-        ->toSql();
+            ->paginate(20);
+//        ->toSql();
         return $list;
         //如果 $search  为空  则  不加入 【排序条件
 
