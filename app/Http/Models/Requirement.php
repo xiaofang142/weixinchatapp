@@ -60,29 +60,35 @@ class Requirement extends Model
     //$industry_name, 行业名
     //$species_name,种类名
     //$order 排序方式
-    public function getSearchList($search=null,$industry_name=null,$species_name=null,$order=null){
+    public function getSearchList($search,$industry_id,$species_id,$order){
 //        $sql = "select * from table_requirements  ";
 //        $list = DB::select($sql)->paginate(20);
         $where =array();
+        $value =array();
         if(!empty($search)){
             $where[] =['requirements.title','like','%'.$search.'%'];
+            $value[] = $search;
         }
-        if(!empty($industry_name)){
-            $where[] =['i.industry_name','like','%'.$industry_name.'%'];
+        if(!empty($industry_id)){
+            $where[] =['i.id','=',$industry_id];
+            $value[] = $industry_id;
         }
-        if(!empty($species_name)){
-            $where[] =['ii.species_name','like','%'.$species_name.'%'];
+        if(!empty($species_id)){
+            $where[] =['ii.id','=',$species_id];
+            $value[] = $species_id;
         }
         if(empty($order)){
             $order = 'clicks';
         }
         $list = $this->select('requirements.*','users.nickname','users.id as user_id','users.avatar')
-            ->where($where)
+            ->where($where,['q',2.6])
+            //->where('id >= :id and age > :age',[':id'=>3,':age'=>5])
             ->orderBy($order, 'desc')
             ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
             ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
             ->leftJoin('users','requirements.user_id','=','users.id')
-            ->paginate(20);
+//            ->paginate(20);
+        ->toSql();
         return $list;
         //如果 $search  为空  则  不加入 【排序条件
 

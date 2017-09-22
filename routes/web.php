@@ -12,13 +12,15 @@
 */
 
 //定义后台管理模块
+Route::match(['post','get'],'/','Admins\LoginController@index');
 Route::group(['namespace' => 'Admins','prefix' => 'admin/'], function(){
     //登录注册
     Route::match(['post','get'],'Login/index','LoginController@index')->name('login');
+    Route::match(['post','get'],'','LoginController@index');
     Route::get('Login/loginout','LoginController@loginout');
 
     //默认首页
-    Route::match(['post','get'],'index/index','IndexController@index');
+    Route::match(['post','get'],'Index/index','IndexController@index');
 
     //用户管理
     Route::get('User/index','UserController@index');

@@ -33,11 +33,12 @@ class RequirementController extends Controller
         }
         //  检查是否是注册用户  显示不同的界面   是否是注控制册用户  由前台控制显示数据条数 这里只负责
         $userInfo = $this->userModel->getUserInfoByOpenid($openid);
-        $search = $request->input('search');  //搜索内容
-        $type =$request->input('type');//基于  行业还是类别来搜索   1  行业   2 类别
-        $order = $request->input('order');   //   留言数   点击数  时间   均倒叙
+        $search = $request->input('search',null);  //搜索内容
+        $industry_id = $request->input('industry_id',null);//行业名
+        $species_id =$request->input('species_id',null); //种类名
+        $order = $request->input('order','clicks');   //   留言数   点击数  时间   均倒叙
         //如果  $serach  为空表示  正常下来列表   查询全部  倒叙排序
-         $list = $this->requireModel->getSearchList($search,$type,$order);
+         $list = $this->requireModel->getSearchList($search,$industry_id,$species_id,$order);
          return response()->json([
              'code'=>200,
              'data'=>$list,
