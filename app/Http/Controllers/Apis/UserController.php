@@ -51,7 +51,7 @@ class UserController extends Controller
                 ]);
             }else{
                 //此时表示在个人信息页面   同时需要拿到  该用户已经发布过的
-                $userInfo['requirements'] =$this->getUserHavdRequirement();
+                $userInfo['requirements'] =$this->getUserHavdRequirement($userInfo->id);
                 return response()->json([
                     'code' => '200',
                     'data' => $userInfo,

@@ -108,8 +108,9 @@ class Requirement extends Model
             ->where('requirements.deleted','=','0')
             ->orderBy('clicks', 'desc')
             ->leftJoin('industrys as i', 'requirements.industry_id', '=', 'i.id')
+            ->leftJoin('industrys as ii', 'requirements.species_id', '=', 'ii.id')
             ->leftJoin('users','requirements.user_id','=','users.id')
-            ->select('requirements.*', 'i.name','users.nickname')
+            ->select('requirements.*', 'i.name','users.nickname','users.avatar','users.id as user_id','i.name as industry_name','ii.name as species_name')
             ->get();
         return $list;
     }
