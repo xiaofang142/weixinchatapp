@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        iscms\Alisms\AlidayuServiceProvider::class,
+        Curder\LaravelAliyunSms\ServiceProvider::class,
 
 
     ],

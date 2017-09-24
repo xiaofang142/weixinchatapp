@@ -12,34 +12,10 @@ namespace App\Http\Controllers\Apis;
 use App\Http\Controllers\Controller;
 use Gregwar\Captcha\CaptchaBuilder;
 use Illuminate\Http\Request;
-use iscms\Alisms\SendsmsPusher as Sms;
-class SendMessageController extends Controller
-{
-    public function __construct(Sms $sms)
-    {
-        $this->sms=$sms;
-    }
-    //发送短信  验证码
-    public function alidayu(Request $request){
-        $phone = $request->input('phone', '17748499189'); // 用户手机号，接收验证码
-        $name = '肖weichatapp';  // 短信签名,可以在阿里大鱼的管理中心看到
-        $num = rand(100000, 999999); // 生成随机验证码
-        $smsParams = [
-            'number' => "$num"
-        ];
-        $content = json_encode($smsParams); // 转换成json格式的
-        $code = "SMS_98930018";   // 阿里大于(鱼)短信模板ID
-        //$request->session()->put('alidayu', $num);  // 存入session 后面做数据验证
 
-        $result = $this->sms->send($phone, $name, $content, $code);
-//        echo "验证码：" . session('alidayu') . '<br/>';
-        if (property_exists($request, 'result')) {
-            // 使用PHP函数json_encode方法将给定数组转化为JSON：
-            return response()->json(['ResultData' => '成功', 'info' => '已发送']);
-        } else {
-            return response()->json(['ResultData' => '失败', 'info' => '重复发送']);
-        }
-    }
+class SendVerifiController extends Controller
+{
+
     //发送图形验证码
     public function verifi(Request $request){
         $builder = new CaptchaBuilder();
@@ -79,5 +55,6 @@ class SendMessageController extends Controller
             ]);
         }
     }
+
 
 }

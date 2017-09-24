@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 //api  请求luyou
-Route::group(['namespace' => 'Apis','middleware' => 'web'], function(){
+Route::group(['namespace' => 'Apis','middleware' => 'api'], function(){
     //基于token  拿到用户信息
     Route::get('user','UserController@getUserInfoByOpenid');
     //用户注册
@@ -38,12 +38,14 @@ Route::group(['namespace' => 'Apis','middleware' => 'web'], function(){
     Route::post('message/reply','MessageController@reply');
     //留言
     Route::post('message/create','MessageController@create');
-    //发送短信
-    Route::get('alidaRouyu','SendMessageController@alidayu');
     //发送图形验证码
-    Route::get('verifi','SendMessageController@verifi');
+    Route::post('verifi','SendVerifiController@verifi');
     //检测图形验证码
-    Route::get('verifi/check','SendMessageController@checkVerifi');
+    Route::get('verifi/check','SendVerifiController@checkVerifi');
+    //发送阿里云短信
+    Route::post('sms','SendSmsController@sendAliyunSms');
+    //检测阿里云短信
+    Route::get('sms/check','SendSmsController@checkSms');
 });
 
 

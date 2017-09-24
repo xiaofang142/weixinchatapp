@@ -21,7 +21,7 @@ class LoginController extends Controller
             $password = $request->input('password');
             $admin = new Admin();
             $info= $admin->findUser($name);
-            if($info !== false){
+            if($info !== false){ 
                 if ($info->password == sha1($password)){
                     session_start();
                     $_SESSION['info'] = $info;
