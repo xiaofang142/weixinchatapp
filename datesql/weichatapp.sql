@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-09-25 15:23:51
+Date: 2017-09-25 17:25:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,6 +30,22 @@ CREATE TABLE `table_admins` (
 -- Records of table_admins
 -- ----------------------------
 INSERT INTO `table_admins` VALUES ('1', 'admin', '69aa8ce43643a5be881f05823b110604b32b5bdf');
+
+-- ----------------------------
+-- Table structure for table_codes
+-- ----------------------------
+DROP TABLE IF EXISTS `table_codes`;
+CREATE TABLE `table_codes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mobile` varchar(255) NOT NULL,
+  `code` varchar(20) NOT NULL COMMENT '电话验证码',
+  `created` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of table_codes
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for table_industrys
@@ -274,3 +290,19 @@ INSERT INTO `table_users` VALUES ('54', '1506050042', 'http://localhost/uploads/
 INSERT INTO `table_users` VALUES ('55', 'qazwsx123456', null, null, null, null, '0', null, null, null, null, '0', '1', null, null, '0', '2017-09-25 06:08:01', '2017-09-25 06:08:01');
 INSERT INTO `table_users` VALUES ('56', 'sdfgfsdgsdfgsfdfg', null, null, null, null, '0', null, null, null, null, '0', '1', null, null, '0', '2017-09-25 06:11:39', '2017-09-25 06:11:39');
 INSERT INTO `table_users` VALUES ('57', 'asdfasdfasfdsafasfasd', null, null, '3425234', '18482100575', '1', null, null, null, null, '0', '1', '4', '9', '0', '2017-09-25 07:14:05', '2017-09-25 06:29:45');
+
+-- ----------------------------
+-- Table structure for table_verifis
+-- ----------------------------
+DROP TABLE IF EXISTS `table_verifis`;
+CREATE TABLE `table_verifis` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(200) NOT NULL COMMENT 'openid',
+  `verifi` varchar(20) NOT NULL COMMENT '图形验证码',
+  `created` datetime NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of table_verifis
+-- ----------------------------
