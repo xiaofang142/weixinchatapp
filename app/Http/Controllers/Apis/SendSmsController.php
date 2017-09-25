@@ -18,14 +18,15 @@ class SendSmsController extends Controller
 {
     //发送短信 注意 此时是阿里云的短信服务   不是阿里大鱼短信
     public function sendAliyunSms(Request $request) {
-        $mobile = $request->input('mobile','18482100575');
+        $mobile = $request->input('mobile');
         $code = $this->ceateCode();
         $params = [
             'code' =>$code,
         ];
         session(['code'=>$code]);
         $smsService = App::make(AliyunSms::class);
-        $result =  $smsService->send(strval('17748499189'),$params);
+        $tplId = config('aliyunsms.template_code');
+        $result =  $smsService->send(strval('17748499189'),$tplId,$params);
         if($result->Code =='OK'){
             return response()->json([
                 'code'=>'200',
