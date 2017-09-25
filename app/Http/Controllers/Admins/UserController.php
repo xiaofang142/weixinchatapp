@@ -96,6 +96,8 @@ class UserController extends BaseController
             $date['type'] = 2; //默认2 后台模拟
             $date['openid'] =time();
             $date['created']=date("Y-m-d H:i:s",time());
+            $date['messages'] = 10;
+            $date['checks'] = 5;
             unset($date['_token']);
 
             $id = (new User())->saveUser($date);

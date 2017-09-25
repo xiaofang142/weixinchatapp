@@ -23,10 +23,10 @@ class SendSmsController extends Controller
         $params = [
             'code' =>$code,
         ];
-        session(['code'=>$code]);
+        $request->session()->put('code',$code);
         $smsService = App::make(AliyunSms::class);
         $tplId = config('aliyunsms.template_code');
-        $result =  $smsService->send(strval('17748499189'),$tplId,$params);
+        $result =  $smsService->send(strval($mobile),$tplId,$params);
         if($result->Code =='OK'){
             return response()->json([
                 'code'=>'200',
@@ -50,6 +50,12 @@ class SendSmsController extends Controller
                 'message' =>'短信验证码不能为空',
             ]);
         }
+        if (!$request->session()->has('code')){
+            return response()->json([
+                'code' =>'0',
+                'message' =>'短信验证码过期',
+            ]);
+        }
         if(strtolower($code) == strtolower(session('code'))){
             return response()->json([
                 'code' =>'0',
@@ -67,7 +73,7 @@ class SendSmsController extends Controller
     }
 
     protected function ceateCode(){
-        $code = mt_rand(1000,9999);
+        $code = mt_rand(100000,999999);
         return $code;
     }
 

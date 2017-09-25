@@ -62,12 +62,15 @@ class UserController extends Controller
             $result = $this->userModel->saveUser([
                 'openid'=> $openid,
                 'updated' =>date('Y-m-d H:i:s'),
+                'messages'=>10,
+                'checks'=>5,
                 'deleted'=>'0',
                 'type'=>1,
                 'created'=>date("Y-m-d H:i:s"),
                 'status'=>'0',
             ]);
             $userInfo = $this->userModel->getUserInfoByOpenid($openid);
+            $userInfo['requirements'] =$this->getUserHavdRequirement($userInfo->id);
             return response()->json([
                 'code' => '200',
                 'data' => $userInfo,

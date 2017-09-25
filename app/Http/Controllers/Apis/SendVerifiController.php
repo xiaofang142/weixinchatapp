@@ -41,6 +41,12 @@ class SendVerifiController extends Controller
             ]);
         }
         $code = $request->session()->get('verifi');
+        if( !$request->session()->has('verifi')){
+            return response()->json([
+                'code' =>0,
+                'message' =>'验证码过期',
+            ]);
+        }
         if(strtolower($verifi) == strtolower($code)){
             return response()->json([
                 'code' =>200,

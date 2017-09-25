@@ -74,7 +74,7 @@ class User extends Model
             //同一天啥也不做
         }else{
             //不在同一天 修改剩余数量 并更新时间
-            $result = $this->setUpdate(['messages'=>10,'updated'=>date('Y-m-d H:i:s',time())],$userInfo->id);
+            $result = $this->setUpdate(['messages'=>10,'checks'=>5,'updated'=>date('Y-m-d H:i:s',time())],$userInfo->id);
         }
         $newUserInfo =$this->getUserInfoByOpenid($openid);
         $messages = $newUserInfo->messages;
@@ -103,7 +103,7 @@ class User extends Model
             //同一天啥也不做
         }else{
             //不在同一天 修改剩余数量 并更新时间
-            $result = $this->setUpdate(['checks'=>5,'updated'=>date('Y-m-d H:i:s',time())],$userInfo->id);
+            $result = $this->setUpdate(['messages'=>10,'checks'=>5,'updated'=>date('Y-m-d H:i:s',time())],$userInfo->id);
         }
         $newUserInfo =$this->getUserInfoByOpenid($openid);
         $checks = $newUserInfo->checks;

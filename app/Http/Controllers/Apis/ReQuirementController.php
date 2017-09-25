@@ -31,7 +31,7 @@ class RequirementController extends Controller
                 'message'=>'openid不能为空',
             ]);
         }
-        //  检查是否是注册用户  显示不同的界面   是否是注控制册用户  由前台控制显示数据条数 这里只负责
+        //    由前台控制显示数据条数 这里只负责提供数据
         $userInfo = $this->userModel->getUserInfoByOpenid($openid);
         $search = $request->input('search',null);  //搜索内容
         $industry_id = $request->input('industry_id',null);//行业名
@@ -60,6 +60,8 @@ class RequirementController extends Controller
                 'message'=>'该需求不存在或者id错误',
             ]);
         }else{
+            //增加点击数
+            $result = $this->addClicks($id);
             return response()->json([
                 'code'=>'200',
                 'data'=> $info,
@@ -67,25 +69,15 @@ class RequirementController extends Controller
         }
     }
     //用户点击需求时增加该点击数
-    public function addClicks(Request $request){
-        $requirementId = $request->input('requirement_id');
-        if(empty($requirementId)){
-            return response()->json([
-                'code'=>'0',
-                'message'=>'该需求不存在或者id错误',
-            ]);
+    public function addClicks($requirementId){
+        if(!empty($requirementId)){
+            $requirement = $this->requireModel->getRequirementInfo($requirementId);
+            $clicks = $requirement->clicks;
+            $result = $this->requireModel->setUpdate([
+                'clicks'=>($clicks +1),
+            ],$requirementId);
+            return $result;
         }
-        $requirement = $this->requireModel->getRequirementInfo($requirementId);
-        $clicks = $requirement->clicks;
-        $result = $this->requireModel->setUpdate([
-            'clicks'=>($clicks +1),
-        ],$requirementId);
-        return response()->json([
-            'code'=>200,
-            'data'=>[
-                'requirement_id'=>$requirementId,
-            ]
-        ]);
     }
     //发布需求
     public function create(Request $request){
