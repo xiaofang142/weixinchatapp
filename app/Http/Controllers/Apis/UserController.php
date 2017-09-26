@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Apis;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\Code;
 use App\Http\Models\Requirement;
 use App\Http\Models\User;
 use Illuminate\Support\Facades\Input;
@@ -115,16 +116,38 @@ class UserController extends Controller
                 'message' => 'openid不能为空',
             ]);
         }
+        $mobile = $request->input('mobile');
+        if(empty($mobile)){
+            return response()->json([
+                'code' => '0',
+                'message' => '电话号不能为空',
+            ]);
+        }
+        $result = $this->userModel->is_mobile($mobile);
+        if($result == false){
+            return response()->json([
+                'code' => '0',
+                'message' => '电话号码格式错误',
+            ]);
+        }
+        $code = $request->input('code');
+        if(empty($code)){
+            return response()->json([
+                'code' => '0',
+                'message' => '验证码不能为空请输入验证码',
+            ]);
+        }
+        $codeResult = $this->checkMobile($mobile,$code);
+        if($codeResult == false){
+            return response()->json([
+                'code' => '0',
+                'message' => '验证码错误',
+            ]);
+        }
         $userInfo = $this->userModel->getUserInfoByOpenid($openid);
         //接收其他信息
         $date  = $request->input();
-        //处理图片   头像 是有微信返回的metaid
-//        $file = Input::file('avatar');
-//        if($file->isValid()){
-//            $path = $request->avatar->store('images');
-//            $url = Storage::url('app/'.$path);
-//            $date['avatar'] = $url;
-//        }
+        unset($date['code']);
         $result = $this->userModel->setUpdate($date,$userInfo->id);
         return response()->json([
             'code' => '200',
@@ -180,5 +203,15 @@ class UserController extends Controller
         $list = (new Requirement())->getUserHavedRequirement($userId);
         return $list;
     }
+    //验证电话号码
+    public function checkMobile($mobile,$code){
+        $result = (new Code())->checkCode($mobile,$code);
+        //如果验证正确  删除当前数据
+        if($result == true){
+            $resultId = (new Code())->deleteCode($mobile);
+        }
+        return $result;
+    }
+
 
 }

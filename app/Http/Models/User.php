@@ -115,6 +115,11 @@ class User extends Model
         return $userInfo;
     }
 
+    //正则匹配电话
+    public function is_mobile($mobile){
+        return preg_match("/^1[34578]\d{9}$/", $mobile);
+    }
+
 
 
 
